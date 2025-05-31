@@ -10,13 +10,12 @@ class Player :
         self.home_filled = home_filled
         self.is_human = is_human
         self.start_position = start_position
+
+    def get_dice_value() :
+        dice_value = random.choice(range(1,7)) 
+        return dice_value
     
-    def choose_move(self,dice_value, board) :
-        if self.is_human : 
-            pass 
-        else :
-            pass 
-    
+    #no matter who the player is, get the movable tokens
     def get_movable_tokens(self, dice_value) :
         movable_tokens = []
         for token in self.tokens :
@@ -24,12 +23,27 @@ class Player :
                 movable_tokens.append(token) 
         return movable_tokens 
     
-    def choose_token_to_move(dice_value) :
-        pass 
+    #depending on who the player is, move the tokens
+    def choose_token_to_move(self, dice_value) :
+        movable_tokens = Player.get_movable_tokens(dice_value) 
+        if self.is_human :
+            print("These are the movable tokens :\n")
+            print(movable_tokens)
+            player_choice = int(input("\nChoose one of the movable tokens (1,2,3) : ")) 
+            return player_choice 
+        else : 
+            self.ai_agent.choose_best_move(dice_value) 
+         
+    #check if the player won 
+    def has_won(self) :
+        counter = 0
+        for token in self.tokens :
+            if token.position in self.home_filled :
+                counter += 1
+        if counter == 3 :
+            return True
 
-    def has_valid_move() :
-        dice_number = random.choice(range(1,7)) 
-        pass 
-
-    def is_all_tokens_home() :
-        pass 
+    #return tokens positions for board display or debugging 
+    def get_token_positions(self) :
+        tokens_positions = [ token.position for token in self.tokens]
+        return tokens_positions 

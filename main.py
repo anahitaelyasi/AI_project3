@@ -7,6 +7,8 @@ from game.token import Token
 
 #Represents one player with three tokens
 
+#self, name, is_human, tokens, ai_agent, home_filled, start_position
+
 #Human player (max)
 playerA = Player(
                     "A", True, 
@@ -15,7 +17,7 @@ playerA = Player(
                         Token("A", "base", 1, 0, False), 
                         Token("A", "base", 2, 0, False)
                     ],
-                    "base", ["A_H1","A_H2","A_H3"], 0
+                    None, ["A_H1","A_H2","A_H3"], 0
                 ) 
 
 #Robot player (min1)

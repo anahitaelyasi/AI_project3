@@ -1,6 +1,6 @@
 
 
-class AI :
+class AI : 
     def __init__(self, depth_limit, nodes_explored):
         self.depth_limit = depth_limit 
         self.nodes_explored = nodes_explored 
