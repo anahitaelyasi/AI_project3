@@ -1,1 +1,1 @@
-# AI_project3
+# Create Ludo Game using minmax and alpha-betha algorithm
