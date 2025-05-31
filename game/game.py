@@ -1,5 +1,5 @@
-from AI_project3.game.board import Board
-from AI_project3.game.player import Player
+from game.board import Board
+from game.player import Player
 
 import random
 
@@ -18,8 +18,8 @@ class Game :
     def start_game(self) :
 
         while not self.is_game_over :
-            self.dice_value = random.choice(range(1,7)) 
-            input("Pick a token (0,1,2) : ")  
+            self.dice_value = Player.get_dice_value() 
+            Player.choose_token_to_move(self.dice_value)  
         while not Game.check_winner() :
             Game.switch_turn(self)  
 

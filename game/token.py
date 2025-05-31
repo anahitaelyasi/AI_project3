@@ -1,14 +1,16 @@
 from game.player import Player
+from game.board import Board
 import regex as re
 
 class Token :
-    def __init__(self, owner, position, state, token_id, steps_taken, is_home):
+    def __init__(self, owner, position, name, steps_taken, is_home):
         self.owner = owner 
         self.position = position 
-        self.token_id = token_id 
+        # self.token_id = token_id 
+        self.name = name 
         self.steps_taken = steps_taken 
         self.is_home = is_home 
-        self.state = state 
+        # self.state = state 
 
     def can_enter_board(self, dice_value) :
         #DONE
@@ -48,6 +50,7 @@ class Token :
 
     def send_to_base(self) :
         #DONE
+        Board.board[self.position] = self.position 
         self.position = None
         self.steps_taken = 0 
         self.state = "base"
