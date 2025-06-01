@@ -1,5 +1,6 @@
 from game.board import Board
 from game.player import Player
+from game.token import Token
 
 import random
 
@@ -17,18 +18,28 @@ class Game :
 
     def start_game(self) :
 
-        while not self.is_game_over :
-            self.dice_value = Player.get_dice_value() 
-            Player.choose_token_to_move(self.dice_value)  
-        while not Game.check_winner() :
+        #Loop while the game is not over
+        while not self.is_game_over : 
             Game.switch_turn(self)  
+            Board.show_current_board_position()  
+            Game.check_winner() 
 
-    def switch_turn(self) :
-        self.current_player_index  += 1 
-        
+    def switch_turn(self) : 
+        current_player = self.Players[self.current_player_index]
+        #Roll the dice
+        self.dice_value = Player.get_dice_value() 
+        #Ask current player to pick a token
+        #Move that token using the board 
+        Board.move_token(current_player.current_token, self.dice_value) 
+
+        if self.dice_value == 6 :
+            Game.switch_turn() 
+        else :
+            self.current_player_index = (self.current_player_index + 1) % 3 
 
     def check_winner() :
-        pass
+        if Player.has_won() : 
+            print(f"Player {Player.name} won")
 
     def print_state() :
-        pass 
+        Board.get_state_snapshop() 

@@ -34,18 +34,24 @@ class Token :
                 self.is_at_home = True 
 
                 #remove the occupied homes
-                options = [f"{self.owner.name}_H1", f"{self.owner.name}_H2", f"{self.owner.name}_H3"]
+                # options = [f"{self.owner.name}_H1", f"{self.owner.name}_H2", f"{self.owner.name}_H3"]
+                options = Player.home_filled
+                options_copy = (Player.home_filled).copy() 
                 for token in self.owner.tokens :
                     if token.position in options :
-                        options.remove(token.position)              
+                        options_copy.remove(token.position)              
                 #if at least one options exists , choose it        
-                if len(options) > 0 :
-                    opt = options.pop(0)
+                if len(options_copy) > 0 :
+                    opt = options_copy.pop(0)
                     self.position = opt 
+                    # options[options.index(opt)] = self.name 
                     self.is_at_home = True
                     self.steps_taken = 50 
                 else :
                     print("The token can't go to home!") 
+            else :
+                self.position = (Player.start_position + self.steps_taken) % 50 
+                Board.board[self.position] = self.name 
                  
 
     def send_to_base(self) :

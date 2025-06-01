@@ -9,7 +9,8 @@ class Player :
         self.ai_agent = ai_agent 
         self.home_filled = home_filled
         self.is_human = is_human
-        self.start_position = start_position
+        self.start_position = start_position 
+        self.current_token = home_filled[0] 
 
     def get_dice_value() :
         dice_value = random.choice(range(1,7)) 
@@ -20,7 +21,7 @@ class Player :
         movable_tokens = []
         for token in self.tokens :
             if Token.can_move(dice_value) or Token.can_enter_board(dice_value) :
-                movable_tokens.append(token) 
+                movable_tokens.append({token.name: token}) 
         return movable_tokens 
     
     #depending on who the player is, move the tokens
@@ -28,8 +29,10 @@ class Player :
         movable_tokens = Player.get_movable_tokens(dice_value) 
         if self.is_human :
             print("These are the movable tokens :\n")
-            print(movable_tokens)
-            player_choice = int(input("\nChoose one of the movable tokens (1,2,3) : ")) 
+            for name in movable_tokens.keys() :
+                print(f"{name} ") 
+            player_choice = input("\nChoose one of the movable tokens: ") 
+            self.current_token = [d[player_choice] for d in movable_tokens if player_choice in d][0]
             return player_choice 
         else : 
             self.ai_agent.choose_best_move(dice_value) 

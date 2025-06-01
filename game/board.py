@@ -11,7 +11,7 @@ class Board :
         self.board = list(range(50)) 
 
     def show_current_board_position(self) :
-        pass 
+        print(self.board)
         
     def is_occupied(self, position) :
         if position.isnumeric() :
@@ -26,36 +26,81 @@ class Board :
             position = token.owner.start_position 
             Board.is_occupied(position)  
     
-    def move_token(self, token, dice_value, position) :
+    def move_token(self, token, dice_value) :
         if Token.can_move(dice_value) :
-            if Board.is_occupied(position) and self.board[position] != token.name : 
+            if Board.is_occupied(token.position) and self.board[token.position] != token.name : 
                 Token.send_to_base() 
             Token.apply_movement(dice_value) 
-            print(self.board) 
+            Board.show_current_board_position()  
 
     #Clear token from board and send back to base 
     def remove_token(self, token) :
         Token.send_to_base() 
-        print(self.board) 
+        Board.show_current_board_position()
 
     #Returns list of tokens at a position 
     def get_state_snapshop() :
         players = Player.players 
         dict = {
             "A" : [
-                {"position": players[0].position, "steps": players., "is_home": 0},
-                {},
-                {}
+                {
+                    "token_name" : players[0].tokens[0].name,
+                    "position": players[0].tokens[0].position, 
+                    "is_home": players[0].tokens[0].is_home, 
+                    "steps_taken": players[0].tokens[0].steps_taken
+                },
+                {
+                    "token_name" : players[0].tokens[1].name,
+                    "position": players[0].tokens[1].position, 
+                    "is_home": players[0].tokens[1].is_home, 
+                    "steps_taken": players[0].tokens[1].steps_taken
+                },
+                {
+                    "token_name" : players[0].tokens[2].name,
+                    "position": players[0].tokens[2].position, 
+                    "is_home": players[0].tokens[2].is_home, 
+                    "steps_taken": players[0].tokens[2].steps_taken
+                }
             ], 
             "B" : [
-                {},
-                {},
-                {}
+                {
+                    "token_name" : players[1].tokens[0].name,
+                    "position": players[1].tokens[0].position, 
+                    "is_home": players[1].tokens[0].is_home, 
+                    "steps_taken": players[1].tokens[0].steps_taken
+                },
+                {
+                    "token_name" : players[1].tokens[1].name,
+                    "position": players[1].tokens[1].position, 
+                    "is_home": players[1].tokens[1].is_home, 
+                    "steps_taken": players[1].tokens[1].steps_taken
+                },
+                {
+                    "token_name" : players[1].tokens[2].name,
+                    "position": players[1].tokens[2].position, 
+                    "is_home": players[1].tokens[2].is_home, 
+                    "steps_taken": players[1].tokens[2].steps_taken
+                }
             ], 
             "C" : [
-                {},
-                {},
-                {}
+                {
+                    "token_name" : players[2].tokens[0].name,
+                    "position": players[2].tokens[0].position, 
+                    "is_home": players[2].tokens[0].is_home, 
+                    "steps_taken": players[2].tokens[0].steps_taken
+                },
+                {
+                    "token_name" : players[2].tokens[1].name,
+                    "position": players[2].tokens[1].position, 
+                    "is_home": players[2].tokens[1].is_home, 
+                    "steps_taken": players[2].tokens[1].steps_taken
+                },
+                {
+                    "token_name" : players[2].tokens[2].name,
+                    "position": players[2].tokens[2].position, 
+                    "is_home": players[2].tokens[2].is_home, 
+                    "steps_taken": players[2].tokens[2].steps_taken
+                }
             ] 
         } 
         return dict 
