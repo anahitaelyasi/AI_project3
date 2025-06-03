@@ -35,7 +35,7 @@ class Player :
             self.current_token = [d[player_choice] for d in movable_tokens if player_choice in d][0]
             return player_choice 
         else : 
-            self.ai_agent.choose_best_move(dice_value) 
+            self.ai_agent.choose_best_move(game_state, dice_value) 
          
     #check if the player won 
     def has_won(self) :

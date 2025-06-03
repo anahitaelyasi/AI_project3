@@ -2,6 +2,8 @@ from game.player import Player
 from game.token import Token 
 from game.game import Game
 
+import regex as re 
+
 class Board :
     def __init__(self, tokens, position, home_slots):
         self.tokens = tokens 
@@ -19,6 +21,7 @@ class Board :
         else :
             return True  
 
+    #place the token on the board
     def place_token(token, position) :
         #if the token is in base and dice value is 6
         if Token.can_enter_board :
@@ -28,8 +31,11 @@ class Board :
     
     def move_token(self, token, dice_value) :
         if Token.can_move(dice_value) :
-            if Board.is_occupied(token.position) and self.board[token.position] != token.name : 
-                Token.send_to_base() 
+            pattern = token.owner + r"_[0-2]$"  
+            #if the position is occupied and the occupied token is not your tokens
+            if Board.is_occupied(token.position) and re.fullmatch(self.board[token.position], pattern)  :
+                #khick the rival's token out of the board  
+                Token.send_to_base(token) 
             Token.apply_movement(dice_value) 
             Board.show_current_board_position()  
 

@@ -25,8 +25,8 @@ class Game :
             Game.check_winner() 
 
     def switch_turn(self) : 
-        current_player = self.Players[self.current_player_index]
-        #Roll the dice
+        current_player = self.Players[self.current_player_index] 
+        #Roll the dice 
         self.dice_value = Player.get_dice_value() 
         #Ask current player to pick a token
         #Move that token using the board 
